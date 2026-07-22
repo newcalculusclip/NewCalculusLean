@@ -1,4 +1,6 @@
-/-
+import Mathlib
+
+/-!
 # The New Calculus geometric identity, formalized
 
 Machine-checked formalization of the core algebraic content of John Gabriel's
@@ -25,8 +27,6 @@ Main results:
   with mathlib's analytic derivative `deriv` for every real polynomial —
   the two frameworks provably compute the same numbers.
 -/
-import Mathlib
-
 open Polynomial
 
 namespace NewCalculus
@@ -53,15 +53,14 @@ theorem gabriel_identity (f : R[X]) (x : R) :
     have hgeval : (taylor x f).eval h = f.eval (x + h) := by
       rw [taylor_apply, eval_comp]; simp [add_comm]
     have hc0 : (taylor x f).coeff 0 = f.eval x := by
-      simpa using taylor_coeff_zero x f
+      simp
     have hsplit := X_mul_divX_add (taylor x f)
     have : (taylor x f).eval h
         = h * ((taylor x f).divX.eval h) + f.eval x := by
       conv_lhs => rw [← hsplit]
-      simp [eval_add, eval_mul, hc0, mul_comm]
+      simp [eval_add, eval_mul, hc0]
     rw [← hgeval, this]
     simp [eval_sub, eval_C]
-    ring
 
 /-- **Uniqueness of the slope**: over an infinite integral domain, if
 `f(x+h) - f(x) = h * (s + Q(h))` with `Q(0) = 0`, then `s` must be
