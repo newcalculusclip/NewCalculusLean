@@ -22,6 +22,22 @@ the limit-free program is valid. It does NOT cover transcendental functions
 (e^x, sin): producing the *magnitude* e by finite algebra is impossible
 (Hermite 1873); the corpus e-derivation is valid only as formal power series.
 
+
+## Self-audit (NewCalculusLean/Consistency.lean)
+
+This project audits claims on both sides. Machine-checked:
+
+| Theorem | Verdict |
+|---|---|
+| `field_axioms_consistent` | All field axioms hold in a 2-element model, checked by finite enumeration (`decide`). The axioms are NOT internally inconsistent — the corpus "pi ≠ pi × 1" argument is an equivocation between measurement semantics and the axioms' implicit definition of ×. |
+| `zero_mul_from_axioms` | 0·x = 0 is derivable from distributivity + cancellation in two steps — a theorem, not a decree. |
+| `gabriel_identity_rat` | **The finitist core**: the New Calculus polynomial derivative over ℚ — provably independent of the real line, completed infinity, and any set-theoretic superstructure. |
+
+The honest position this repo defends: the New Calculus polynomial calculus is
+rigorous, limit-free, and finitistically grounded (verified); the field axioms
+are consistent (verified); producing the magnitude e by finite algebra is
+impossible (Hermite 1873). Rigor is applied symmetrically, whichever way it cuts.
+
 ## Build
 
     lake build   # requires elan; mathlib cache via lake exe cache get
